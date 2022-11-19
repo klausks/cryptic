@@ -62,11 +62,29 @@ public class Operations {
     public static void rotateLeft(byte[] input, int n) {
         while (n >= 0) {
             byte b1 = input[0];
-            for (int i = 0; i < input.length - 2; i++) {
+            for (int i = 0; i < input.length - 1; i++) {
                 input[i] = input[i + 1];
             }
             input[5] = b1;
             n--;
+        }
+    }
+
+    public static void subBytes(byte[] input) {
+        for (int i = 0; i < input.length; i++) {
+            byte b = input[i];
+            int sBoxRow = b / 16;
+            int sBoxCol = b % 16;
+            input[i] = (byte) SBOX[sBoxRow][sBoxCol];
+        }
+    }
+
+    public static void invSubBytes(byte[] input) {
+        for (int i = 0; i < input.length; i++) {
+            byte b = input[i];
+            int sBoxRow = b / 16;
+            int sBoxCol = b % 16;
+            input[i] = (byte) INV_SBOX[sBoxRow][sBoxCol];
         }
     }
 
