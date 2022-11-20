@@ -3,6 +3,8 @@ package crypto;
 import java.util.Arrays;
 import java.util.BitSet;
 
+import static crypto.Constants.BLOCK_SIZE;
+
 public class Operations {
     public static void swapBytes(byte[] input) {
         swapByte(input, 0, 3);
@@ -38,6 +40,15 @@ public class Operations {
 
     public static void invSubBytes(byte[] input) {
         SBox.invSubstitute(input);
+    }
+
+    public static byte[] xor(byte[] m1, byte[] m2) {
+        assert m1.length == m2.length;
+        byte[] result = new byte[BLOCK_SIZE];
+        for (int i = 0; i < m1.length; i++) {
+            result[i] = (byte) (m1[i] ^ m2[i]);
+        }
+        return result;
     }
 
     private static void swapByte(byte[] input, int i1, int i2) {
