@@ -3,17 +3,13 @@ package crypto;
 import java.util.Arrays;
 
 public class KeyScheduler {
-
-    private byte[][] keys = new byte[7][];
-
-    public KeyScheduler(String inputKey) {
-        byte[] key = inputKey.getBytes();
-        key = expandKey(key);
-        keys[0] = key;
-        generateKeys(key);
+    public static byte[][] getKeys (String originalKey) {
+        byte[] firstKey = originalKey.getBytes();
+        firstKey = expandKey(firstKey);
+        return generateKeys(firstKey);
     }
 
-    private byte[] expandKey(byte[] originalKey) {
+    private static byte[] expandKey(byte[] originalKey) {
         assert originalKey.length == 4 : "Key must have 32 bits";
         byte[] expandedKey = Arrays.copyOf(originalKey, 6);
         expandedKey[4] = (byte) (expandedKey[0] ^ expandedKey[1]);
@@ -21,7 +17,9 @@ public class KeyScheduler {
         return expandedKey;
     }
 
-    private void generateKeys(byte[] originalKey) {
+    private static byte[][] generateKeys(byte[] originalKey) {
+        byte[][] keys = new byte[7][];
+        keys[0] = originalKey;
         byte[] previousKey = originalKey;
         // Generate 6 additional keys
         for (int i = 1; i <= 6; i++) {
@@ -29,9 +27,10 @@ public class KeyScheduler {
             keys[i] = newKey;
             previousKey = newKey;
         }
+        return keys;
     }
 
-    private byte[] generateKey(byte[] inputKey) {
+    private static byte[] generateKey(byte[] inputKey) {
         byte[] newKey = new byte[6];
         newKey[0] = (byte) (inputKey[0] ^ inputKey[2]);
         newKey[1] = (byte) (inputKey[1] ^ inputKey[3]);
