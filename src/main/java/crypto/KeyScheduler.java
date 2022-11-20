@@ -42,4 +42,22 @@ public class KeyScheduler {
 
         return newKey;
     }
+
+    public static byte[][] reverseOrder(byte[][] keys) {
+        int firstIdx = 0;
+        int lastIdx = keys.length - 1;
+        byte[][] reversedKeys = Arrays.copyOf(keys, keys.length);
+        while (firstIdx < lastIdx) {
+            swapKey(reversedKeys, firstIdx, lastIdx);
+            firstIdx++;
+            lastIdx++;
+        }
+        return reversedKeys;
+    }
+
+    private static void swapKey(byte[][] keys, int i1, int i2) {
+        byte[] tmp = keys[i1];
+        keys[i1] = keys[i2];
+        keys[i2] = tmp;
+    }
 }

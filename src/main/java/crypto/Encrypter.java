@@ -1,13 +1,15 @@
 package crypto;
 
+import java.util.Arrays;
+
 public class Encrypter {
 
     private byte[][] keys;
-    byte[] initializationVec;
+    IV initializationVec;
 
     public Encrypter(String userKey) {
         keys = KeyScheduler.getKeys(userKey);
-        initializationVec = generateInitializationVec();
+        initializationVec = new IV();
     }
 
     private byte[] generateInitializationVec() {
