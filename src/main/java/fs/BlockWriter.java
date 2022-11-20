@@ -14,6 +14,7 @@ public class BlockWriter {
     }
 
     public void write(byte[] bytes) throws IOException {
+        assert bytes.length == BLOCK_SIZE;
         targetFile.write(bytes);
     }
 
