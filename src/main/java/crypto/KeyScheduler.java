@@ -50,7 +50,7 @@ public class KeyScheduler {
         while (firstIdx < lastIdx) {
             swapKey(reversedKeys, firstIdx, lastIdx);
             firstIdx++;
-            lastIdx++;
+            lastIdx--;
         }
         return reversedKeys;
     }

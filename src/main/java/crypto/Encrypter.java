@@ -17,17 +17,17 @@ public class Encrypter {
         keys = KeyScheduler.getKeys(userKey);
     }
 
-    public byte[] encrypt(byte[] message) throws IOException {
+    public void encrypt(byte[] message) throws IOException {
         for (int i = 0; i < ROUNDS; i++) {
             message = doRound(message, i);
         }
-        return message;
     }
 
-    private void doRound(byte[] message, int keyIndex) {
-        Operations.xor(message, keys[keyIndex]);
+    private byte[] doRound(byte[] message, int keyIndex) {
+        message = Operations.xor(message, keys[keyIndex]);
         Operations.subBytes(message);
         Operations.swapBytes(message);
         Operations.rotateRight(message, 1);
+        return message;
     }
 }
