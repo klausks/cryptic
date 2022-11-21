@@ -1,29 +1,29 @@
 package crypto;
 
-import java.io.IOException;
-import java.nio.charset.StandardCharsets;
+import java.util.Arrays;
 
 import static crypto.Constants.ROUNDS;
 
 public class Decrypter {
 
     private byte[][] keys;
-    private IV initializationVec;
-    public Decrypter(String userKey, IV initializationVec) {
-        this.keys = KeyScheduler.reverseOrder(KeyScheduler.getKeys(userKey));
-        this.initializationVec = initializationVec;
+
+    public Decrypter(String userKey) {
+        this.keys = KeyScheduler.getKeys(userKey);
     }
 
-    public void decrypt(byte[] message) throws IOException {
-        for (int i = ROUNDS - 1; i >= 0; i--) {
+    public byte[] decrypt(byte[] message) {
+        for (int i = 0; i < ROUNDS; i++) {
             message = doRound(message, i);
         }
+        return message;
     }
 
     private byte[] doRound(byte[] message, int keyIndex) {
-        Operations.rotateRight(message, 1);
-        Operations.swapBytes(message);
-        Operations.subBytes(message);
-        return Operations.xor(message, keys[keyIndex]);
+        byte[] encryptedMsg = Arrays.copyOf(message, message.length);
+        Operations.rotateLeft(encryptedMsg, keyIndex);
+        Operations.swapBytes(encryptedMsg);
+        Operations.invSubBytes(encryptedMsg);
+        return Operations.xor(encryptedMsg, keys[keyIndex]);
     }
 }

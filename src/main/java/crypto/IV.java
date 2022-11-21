@@ -3,15 +3,14 @@ package crypto;
 public class IV {
     private byte[] vector;
     public IV() {
-        Double rand = Math.random();
-        long longRand = rand.longValue() % 64;
+        long randomLong = (long) (Math.random() * (Long.MAX_VALUE));
         vector = new byte[] {
-                (byte) (longRand & 0xff),
-                (byte) ((longRand >>> 8) & 0xff),
-                (byte) ((longRand >>> 16) & 0xff),
-                (byte) ((longRand >>> 24) & 0xff),
-                (byte) ((longRand >>> 32) & 0xff),
-                (byte) ((longRand >>> 40) & 0xff)
+                (byte) (randomLong & 0xff),
+                (byte) ((randomLong >>> 8) & 0xff),
+                (byte) ((randomLong >>> 16) & 0xff),
+                (byte) ((randomLong >>> 24) & 0xff),
+                (byte) ((randomLong >>> 32) & 0xff),
+                (byte) ((randomLong >>> 40) & 0xff)
         };
     }
 

@@ -1,7 +1,5 @@
 package crypto;
 
-import static crypto.Constants.BLOCK_SIZE;
-
 public class SBox {
 
     private static final int[][] SBOX = {
@@ -44,8 +42,8 @@ public class SBox {
     public static void substitute(byte[] input) {
         for (int i = 0; i < input.length; i++) {
             byte b = input[i];
-            int sBoxRow = (b & 0xFF) / 16;
-            int sBoxCol = (b & 0xFF) % 16;
+            int sBoxRow = Byte.toUnsignedInt(b) / 16;
+            int sBoxCol = Byte.toUnsignedInt(b) % 16;
             input[i] = (byte) SBOX[sBoxRow][sBoxCol];
         }
     }
@@ -53,8 +51,8 @@ public class SBox {
     public static void invSubstitute(byte[] input) {
         for (int i = 0; i < input.length; i++) {
             byte b = input[i];
-            int sBoxRow = b / 16;
-            int sBoxCol = b % 16;
+            int sBoxRow = Byte.toUnsignedInt(b) / 16;
+            int sBoxCol = Byte.toUnsignedInt(b) % 16;
             input[i] = (byte) INV_SBOX[sBoxRow][sBoxCol];
         }
     }

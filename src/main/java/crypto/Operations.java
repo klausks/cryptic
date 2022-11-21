@@ -13,7 +13,7 @@ public class Operations {
     }
 
     public static void rotateRight(byte[] input, int n) {
-        while (n >= 0) {
+        while (n > 0) {
             byte b6 = input[5];
             for (int i = input.length - 1; i > 0; i--) {
                 input[i] = input[i - 1];
@@ -24,7 +24,7 @@ public class Operations {
     }
 
     public static void rotateLeft(byte[] input, int n) {
-        while (n >= 0) {
+        while (n > 0) {
             byte b1 = input[0];
             for (int i = 0; i < input.length - 1; i++) {
                 input[i] = input[i + 1];

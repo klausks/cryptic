@@ -9,6 +9,7 @@ import fs.BlockWriter;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.Arrays;
 
 public class CBC {
     IV initializationVec;
@@ -18,7 +19,7 @@ public class CBC {
     public CBC(String userKey) throws FileNotFoundException {
         initializationVec = new IV();
         encrypter = new Encrypter(userKey);
-        decrypter = new Decrypter(userKey, initializationVec);
+        decrypter = new Decrypter(userKey);
     }
 
     public void encryptFile() throws IOException {
@@ -28,7 +29,7 @@ public class CBC {
         byte[] block = fileReader.readBlock();
         do {
             block = Operations.xor(block, c);
-            encrypter.encrypt(block);
+            block = encrypter.encrypt(block);
             fileWriter.write(block);
             c = block;
             block = fileReader.readBlock();
@@ -43,17 +44,16 @@ public class CBC {
         BlockWriter fileWriter = new BlockWriter("C:\\Users\\klaus\\OneDrive\\Documentos\\Unisinos\\Teoria da Informacao\\cryptic\\test2.txt");
         byte[] c = initializationVec.getVector();
         byte[] block = fileReader.readBlock();
-
         do {
-            decrypter.decrypt(block);
+            byte[] previousBlock = Arrays.copyOf(block, block.length);
+            block = decrypter.decrypt(block);
             block = Operations.xor(block, c);
             fileWriter.write(block);
             block = fileReader.readBlock();
-            c = block;
+            c = previousBlock;
         } while (block.length > 0);
 
         fileReader.close();
         fileWriter.close();
     }
-
 }

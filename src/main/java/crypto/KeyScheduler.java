@@ -2,6 +2,9 @@ package crypto;
 
 import java.util.Arrays;
 
+import static crypto.Constants.BLOCK_SIZE;
+import static crypto.Constants.ROUNDS;
+
 public class KeyScheduler {
     public static byte[][] getKeys (String originalKey) {
         byte[] firstKey = originalKey.getBytes();
@@ -18,11 +21,10 @@ public class KeyScheduler {
     }
 
     private static byte[][] generateKeys(byte[] originalKey) {
-        byte[][] keys = new byte[7][];
+        byte[][] keys = new byte[ROUNDS][];
         keys[0] = originalKey;
         byte[] previousKey = originalKey;
-        // Generate 6 additional keys
-        for (int i = 1; i <= 6; i++) {
+        for (int i = 1; i < ROUNDS; i++) {
             byte[] newKey = generateKey(previousKey);
             keys[i] = newKey;
             previousKey = newKey;
@@ -31,7 +33,7 @@ public class KeyScheduler {
     }
 
     private static byte[] generateKey(byte[] inputKey) {
-        byte[] newKey = new byte[6];
+        byte[] newKey = new byte[BLOCK_SIZE];
         newKey[0] = (byte) (inputKey[0] ^ inputKey[2]);
         newKey[1] = (byte) (inputKey[1] ^ inputKey[3]);
         newKey[2] = (byte) (inputKey[2] ^ inputKey[4]);
@@ -41,23 +43,5 @@ public class KeyScheduler {
         newKey[5] = (byte) (newKey[2] ^ inputKey[3]);
 
         return newKey;
-    }
-
-    public static byte[][] reverseOrder(byte[][] keys) {
-        int firstIdx = 0;
-        int lastIdx = keys.length - 1;
-        byte[][] reversedKeys = Arrays.copyOf(keys, keys.length);
-        while (firstIdx < lastIdx) {
-            swapKey(reversedKeys, firstIdx, lastIdx);
-            firstIdx++;
-            lastIdx--;
-        }
-        return reversedKeys;
-    }
-
-    private static void swapKey(byte[][] keys, int i1, int i2) {
-        byte[] tmp = keys[i1];
-        keys[i1] = keys[i2];
-        keys[i2] = tmp;
     }
 }
