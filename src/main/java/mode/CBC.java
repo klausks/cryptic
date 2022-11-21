@@ -16,7 +16,7 @@ public class CBC {
     Encrypter encrypter;
     Decrypter decrypter;
 
-    public CBC(String userKey) throws FileNotFoundException {
+    public CBC(String userKey) {
         initializationVec = new IV();
         encrypter = new Encrypter(userKey);
         decrypter = new Decrypter(userKey);

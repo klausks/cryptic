@@ -14,7 +14,7 @@ public class Decrypter {
 
     public byte[] decrypt(byte[] message) {
         for (int i = 0; i < ROUNDS; i++) {
-            message = doRound(message, i);
+            message = doRound(message, ROUNDS - 1 - i);
         }
         return message;
     }
