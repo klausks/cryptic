@@ -21,7 +21,7 @@ public class Cryptic {
 
          */
         CBC cbcOperation = new CBC("ABCD");
-        cbcOperation.encryptFile();
-        cbcOperation.decryptFile();
+        cbcOperation.encryptFile("./test.txt");
+        cbcOperation.decryptFile("./test.txt.cryptic", "test_out.txt");
     }
 }

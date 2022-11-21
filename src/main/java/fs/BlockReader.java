@@ -7,10 +7,12 @@ public class BlockReader {
 
     public static int BLOCK_SIZE = 6;
     private FileInputStream srcFileStream;
-    private File srcFolder;
+    private String srcFileName;
+    private String srcFolder;
 
     public BlockReader(String filePath) throws FileNotFoundException {
-        this.srcFolder = new File(filePath).getParentFile();
+        this.srcFileName = new File(filePath).getName();
+        this.srcFolder = new File(filePath).getParentFile().getPath();
         this.srcFileStream = new FileInputStream(filePath);
     }
 
@@ -28,5 +30,13 @@ public class BlockReader {
 
     public void close() throws IOException {
         srcFileStream.close();
+    }
+
+    public String getSrcFileName() {
+        return this.srcFileName;
+    }
+
+    public String getSrcFolder() {
+        return this.srcFolder;
     }
 }

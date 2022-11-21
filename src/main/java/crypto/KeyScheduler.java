@@ -8,11 +8,11 @@ import static crypto.Constants.ROUNDS;
 public class KeyScheduler {
     public static byte[][] getKeys (String originalKey) {
         byte[] firstKey = originalKey.getBytes();
-        firstKey = expandKey(firstKey);
+        firstKey = extendKey(firstKey);
         return generateKeys(firstKey);
     }
 
-    private static byte[] expandKey(byte[] originalKey) {
+    private static byte[] extendKey(byte[] originalKey) {
         assert originalKey.length == 4 : "Key must have 32 bits";
         byte[] expandedKey = Arrays.copyOf(originalKey, 6);
         expandedKey[4] = (byte) (expandedKey[0] ^ expandedKey[1]);

@@ -22,9 +22,9 @@ public class CBC {
         decrypter = new Decrypter(userKey);
     }
 
-    public void encryptFile() throws IOException {
-        BlockReader fileReader = new BlockReader("C:\\Users\\klaus\\OneDrive\\Documentos\\Unisinos\\Teoria da Informacao\\cryptic\\test.txt");
-        BlockWriter fileWriter = new BlockWriter("C:\\Users\\klaus\\OneDrive\\Documentos\\Unisinos\\Teoria da Informacao\\cryptic\\test.cryptic");
+    public void encryptFile(String srcFilePath) throws IOException {
+        BlockReader fileReader = new BlockReader(srcFilePath);
+        BlockWriter fileWriter = new BlockWriter(srcFilePath + ".cryptic");
         byte[] c = initializationVec.getVector();
         byte[] block = fileReader.readBlock();
         do {
@@ -39,9 +39,9 @@ public class CBC {
         fileWriter.close();
     }
 
-    public void decryptFile() throws IOException {
-        BlockReader fileReader = new BlockReader("C:\\Users\\klaus\\OneDrive\\Documentos\\Unisinos\\Teoria da Informacao\\cryptic\\test.cryptic");
-        BlockWriter fileWriter = new BlockWriter("C:\\Users\\klaus\\OneDrive\\Documentos\\Unisinos\\Teoria da Informacao\\cryptic\\test2.txt");
+    public void decryptFile(String srcFilePath, String tgtFileName) throws IOException {
+        BlockReader fileReader = new BlockReader(srcFilePath);
+        BlockWriter fileWriter = new BlockWriter(tgtFileName);
         byte[] c = initializationVec.getVector();
         byte[] block = fileReader.readBlock();
         do {
