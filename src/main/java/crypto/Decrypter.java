@@ -21,7 +21,7 @@ public class Decrypter {
 
     private byte[] doRound(byte[] message, int keyIndex) {
         byte[] encryptedMsg = Arrays.copyOf(message, message.length);
-        Operations.rotateLeft(encryptedMsg, keyIndex);
+        Operations.rotateLeft(encryptedMsg, 1);
         Operations.swapBytes(encryptedMsg);
         Operations.invSubBytes(encryptedMsg);
         return Operations.xor(encryptedMsg, keys[keyIndex]);

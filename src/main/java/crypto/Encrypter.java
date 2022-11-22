@@ -23,7 +23,7 @@ public class Encrypter {
         byte[] encryptedMsg = Operations.xor(message, keys[keyIndex]);
         Operations.subBytes(encryptedMsg);
         Operations.swapBytes(encryptedMsg);
-        Operations.rotateRight(encryptedMsg, keyIndex);
+        Operations.rotateRight(encryptedMsg, 1);
         return encryptedMsg;
     }
 }
