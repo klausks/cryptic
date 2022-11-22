@@ -5,4 +5,4 @@ Cifrador e decifrador desenvolvido pelos seguintes integrantes como trabalho de 
 - Gustavo Bedin
 - Klaus Steinmeier
 
-Basta compilar e executar a classe "Cryptic" (main). Como resultado, o arquivo "teste.txt" produzirá o arquivo cifrado "teste.txt.cryptic", e o arquivo decifrado "teste_out.txt", que deve ser idêntico à "teste.txt".
+Basta executar a classe "Cryptic" (main). Como resultado, o arquivo "teste.txt" produzirá o arquivo cifrado "teste.txt.cryptic", e o arquivo decifrado "teste_out.txt", que deve ser idêntico à "teste.txt".
